@@ -1,5 +1,6 @@
 package com.github.gabrielburich.courseapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,8 +30,11 @@ public class Course {
     @NotBlank
     private String name;
 
+    @NotBlank
+    private String teacher;
+
     @NotNull
-    private Category category;
+    private String category;
 
     private Status active = Status.INACTIVE;
 
@@ -40,6 +44,7 @@ public class Course {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @JsonIgnore
     public void toggleActive() {
         this.active = this.active.equals(Status.ACTIVE) ? Status.INACTIVE : Status.ACTIVE;
     }

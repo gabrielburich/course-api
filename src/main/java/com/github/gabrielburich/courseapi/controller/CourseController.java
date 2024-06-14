@@ -3,6 +3,7 @@ package com.github.gabrielburich.courseapi.controller;
 import com.github.gabrielburich.courseapi.domain.Course;
 import com.github.gabrielburich.courseapi.dto.CourseDTO;
 import com.github.gabrielburich.courseapi.useCase.deleteCourse.DeleteCourseUseCase;
+import com.github.gabrielburich.courseapi.useCase.listCourse.GetCourseUseCase;
 import com.github.gabrielburich.courseapi.useCase.listCourse.ListCourseUseCase;
 import com.github.gabrielburich.courseapi.useCase.saveCourse.SaveCourseUseCase;
 import com.github.gabrielburich.courseapi.useCase.updateActive.UpdateActiveUseCase;
@@ -28,6 +29,7 @@ public class CourseController {
 
     private final SaveCourseUseCase saveCourseUseCase;
     private final ListCourseUseCase listCourseUseCase;
+    private final GetCourseUseCase getCourseUseCase;
     private final UpdateCourseUseCase updateCourseUseCase;
     private final UpdateActiveUseCase updateActiveUseCase;
     private final DeleteCourseUseCase deleteCourseUseCase;
@@ -35,12 +37,14 @@ public class CourseController {
     public CourseController(
             final SaveCourseUseCase saveCourseUseCase,
             final ListCourseUseCase listCourseUseCase,
+            final GetCourseUseCase getCourseUseCase,
             final UpdateCourseUseCase updateCourseUseCase,
             final UpdateActiveUseCase updateActiveUseCase,
             final DeleteCourseUseCase deleteCourseUseCase
     ) {
         this.saveCourseUseCase = saveCourseUseCase;
         this.listCourseUseCase = listCourseUseCase;
+        this.getCourseUseCase = getCourseUseCase;
         this.updateCourseUseCase = updateCourseUseCase;
         this.updateActiveUseCase = updateActiveUseCase;
         this.deleteCourseUseCase = deleteCourseUseCase;
@@ -59,6 +63,12 @@ public class CourseController {
     ) {
         var result = listCourseUseCase.execute(name, category);
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Course> get(@PathVariable String id) {
+        var result = getCourseUseCase.execute(UUID.fromString(id));
+        return result != null ? ResponseEntity.ok(result) : ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")

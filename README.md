@@ -15,14 +15,15 @@ curl --request POST \
   --header 'Content-Type: application/json' \
   --data '{
 	"name": "Curso Java",
-	"category": "BEGINNER"
+	"teacher": "Nome professor",
+	"category": "Backend"
 }'
 ```
 
 #### list
 
 ```shell
-curl --request GET --url 'http://localhost:8080/courses?category=BEGINNER&name=Curso%20Java' 
+curl --request GET --url 'http://localhost:8080/courses?category=Backend&name=Curso%20Java' 
 ```
 
 #### update
@@ -33,7 +34,8 @@ curl --request PUT \
   --header 'Content-Type: application/json' \
   --data '{
 	"name": "Curso Java editado",
-	"category": "BEGINNER"
+	"teacher": "Nome professor editado",
+	"category": "Frontend"
 }'
 ```
 
